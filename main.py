@@ -1,38 +1,26 @@
 import sys
 import math
 
-def validate_coefficient(value):
-    try:
-        float(value)
-        return True
-    except ValueError:
-        return False
-
 def get_coefficient_from_user(coefficient_name):
     while True:
         try:
             value = input(f"Введите коэффициент {coefficient_name}: ")
             return float(value)
         except ValueError:
-            print(f"Ошибка! Коэффициент {coefficient_name} должен быть числом. Попробуйте еще раз.")
+            print(f"Ошибка! Коэффициент {coefficient_name} должен быть числом.")
 
 def parse_command_line_args():
-    coefficients = []
-    
     if len(sys.argv) >= 4:
-        for i in range(1, 4):
-            if validate_coefficient(sys.argv[i]):
-                coefficients.append(float(sys.argv[i]))
-            else:
-                return None
-        return coefficients
+        try:
+            a = float(sys.argv[1])
+            b = float(sys.argv[2])
+            c = float(sys.argv[3])
+            return [a, b, c]
+        except ValueError:
+            return None
     return None
 
 def solve_biquadratic(a, b, c):
-    if a == 0:
-        print("Коэффициент A не может быть равен нулю для биквадратного уравнения!")
-        return []
-    
     D = b**2 - 4*a*c
     print(f"\nДискриминант D = {b}² - 4*{a}*{c} = {D}")
     
@@ -47,19 +35,19 @@ def solve_biquadratic(a, b, c):
             x1 = math.sqrt(t1)
             x2 = -math.sqrt(t1)
             roots.extend([x1, x2])
-            print(f"Корни из t1: x = ±{math.sqrt(t1):.4f}")
+            print(f"Корни из замены на t1: x = ±{math.sqrt(t1):.4f}")
         elif t1 == 0:
             roots.append(0)
-            print("Корень из t1: x = 0")
+            print("Корень из замены на t1: x = 0")
         
         if t2 > 0:
             x3 = math.sqrt(t2)
             x4 = -math.sqrt(t2)
             roots.extend([x3, x4])
-            print(f"Корни из t2: x = ±{math.sqrt(t2):.4f}")
+            print(f"Корни из замены на t2: x = ±{math.sqrt(t2):.4f}")
         elif t2 == 0 and 0 not in roots:
             roots.append(0)
-            print("Корень из t2: x = 0")
+            print("Корень из замены на t2: x = 0")
             
     elif D == 0:
         t = -b / (2*a)
@@ -73,18 +61,15 @@ def solve_biquadratic(a, b, c):
         elif t == 0:
             roots.append(0)
             print("Один корень: x = 0")
-        else:
-            print("Нет действительных корней")
+
     else:
-        print("Дискриминант отрицательный. Действительных корней нет.")
+        print("Дискриминант отрицательный.")
     
     return roots
 
 def main():
-    print("=" * 50)
-    print("Решение биквадратного уравнения")
+    print("Решение биквадратного уравнения.")
     print("Уравнение вида: A·x⁴ + B·x² + C = 0")
-    print("=" * 50)
     
     coefficients = parse_command_line_args()
     
@@ -103,11 +88,10 @@ def main():
         b = get_coefficient_from_user("B")
         c = get_coefficient_from_user("C")
     
-    print(f"\nРешаем уравнение: {a}·x⁴ + {b}·x² + {c} = 0")
+    print(f"\nУравнение: {a}·x⁴ + {b}·x² + {c} = 0")
     
     roots = solve_biquadratic(a, b, c)
     
-    print("\n" + "=" * 50)
     if roots:
         unique_roots = []
         for root in roots:
@@ -120,8 +104,7 @@ def main():
         for i, root in enumerate(unique_roots, 1):
             print(f"x{i} = {root:.6f}")
     else:
-        print("Действительных корней нет")
-    print("=" * 50)
+        print("Действительных корней нет.")
 
 if __name__ == "__main__":
     main()
