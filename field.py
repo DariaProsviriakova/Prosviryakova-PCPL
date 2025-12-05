@@ -18,22 +18,17 @@ def field(items, *args):
             if has_valid_fields:
                 yield result
 
+
 if __name__ == "__main__":
     goods = [
         {'title': 'Ковер', 'price': 2000, 'color': 'green'},
-        {'title': 'Диван', 'color': 'black'},
-        {'title': None, 'price': 3000, 'color': 'blue'},
-        {'price': 4000}
+        {'title': 'Диван для отдыха', 'price': 5300, 'color': 'black'}
     ]
     
-    print("Test 1 - один аргумент:")
+    print("Test field(goods, 'title'):")
     for title in field(goods, 'title'):
         print(title)
     
-    print("\nTest 2 - несколько аргументов:")
+    print("\nTest field(goods, 'title', 'price'):")
     for item in field(goods, 'title', 'price'):
-        print(item)
-    
-    print("\nTest 3 - с неуказанными значениями:")
-    for item in field(goods, 'title', 'price', 'color'):
         print(item)
