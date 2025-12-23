@@ -46,9 +46,9 @@ class DataManager:
             ComputerClassroom(6, 3),
             ComputerClassroom(7, 4),
             ComputerClassroom(8, 2),
-            ComputerClassroom(1, 2),  
-            ComputerClassroom(5, 4),  
-            ComputerClassroom(8, 1),  
+            ComputerClassroom(1, 2),
+            ComputerClassroom(5, 4),
+            ComputerClassroom(8, 1),
         ]
 
     def get_one_to_many(self):
@@ -74,7 +74,6 @@ class DataManager:
         ]
 
     def task1_computers_starting_with_A(self):
-        
         one_to_many = self.get_one_to_many()
         
         result = [
@@ -86,7 +85,6 @@ class DataManager:
         return sorted(result, key=itemgetter(0))
 
     def task2_classrooms_min_ram(self):
-        
         one_to_many = self.get_one_to_many()
         
         min_ram_by_classroom = {}
@@ -105,7 +103,6 @@ class DataManager:
         return result
 
     def task3_all_relationships_sorted(self):
-        
         many_to_many = self.get_many_to_many()
         
         result = sorted(many_to_many, key=itemgetter(0))
@@ -115,14 +112,10 @@ class DataManager:
 def main():
     manager = DataManager()
     
-    print("=" * 70)
-    print("РУБЕЖНЫЙ КОНТРОЛЬ №1 ПО КУРСУ ПИК ЯП")
     print("Предметная область: Компьютер - Дисплейный класс")
     print("Вариант В")
-    print("=" * 70)
     
     print("\n1. Компьютеры, модель которых начинается с буквы 'А':")
-    print("-" * 60)
     result1 = manager.task1_computers_starting_with_A()
     if result1:
         for model, ram, classroom_name in result1:
@@ -131,13 +124,11 @@ def main():
         print("Компьютеры с моделями на 'А' не найдены")
     
     print("\n2. Дисплейные классы с минимальным RAM компьютеров:")
-    print("-" * 60)
     result2 = manager.task2_classrooms_min_ram()
     for classroom_name, min_ram in result2:
         print(f"Класс: {classroom_name}, Мин. RAM: {min_ram}GB")
     
     print("\n3. Все связи компьютеров и дисплейных классов (отсортировано по компьютерам):")
-    print("-" * 60)
     result3 = manager.task3_all_relationships_sorted()
     for model, ram, classroom_name in result3:
         print(f"Компьютер: {model} ({ram}GB) -> Класс: {classroom_name}")
